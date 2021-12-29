@@ -11,6 +11,7 @@
     import RiOthersBellFill from "svelte-icons-pack/ri/RiOthersBellFill";
     import RiOthersBellLine from "svelte-icons-pack/ri/RiOthersBellLine";
     let clicked = false;
+    let active = -1;
     let left = 0;
     let bottom = 0;
     let nav;
@@ -19,6 +20,9 @@
         clicked = id
         left = 5-nav.getBoundingClientRect().left +e.target.getBoundingClientRect().left
         bottom = window.innerHeight -e.target.getBoundingClientRect().bottom
+        setTimeout(() => {
+            active = id;
+        }, animationSpeed*0.7)
         setTimeout(() => {
             clicked =  false
         }, animationSpeed)
@@ -29,46 +33,44 @@
   <defs>
     <filter id="goo">
         <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
-        <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -7" result="goo" />
+        <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -7" result="colormatrix" />
+        <feComposite in2="goo" in="colormatrix" operator="in" />
     </filter>
   </defs>
-</svg>
-
-<svg width="0" height="0">
 </svg>
 
 <div class='container'>
     <div class="overlay">
         <div style={`--speed: ${animationSpeed}ms;`} class:moving={clicked == 1} on:click={(e) => !clicked && handleClick(e, 1)} class="icon">
-            {#if clicked != 1}
+            {#if active != 1}
                 <Icon color="white" size="1.4em" src={RiBuildingsHome5Line} />
             {:else}
                 <Icon color="white" size="1.4em" src={RiBuildingsHome5Fill} />
             {/if}
         </div>
         <div style={`--speed: ${animationSpeed}ms;`} class:moving={clicked == 2} on:click={(e) => !clicked && handleClick(e, 2)} class="icon">
-            {#if clicked != 2}
+            {#if active != 2}
                 <Icon color="white" size="1.4em" src={RiSystemSearchLine} />
             {:else}
                 <Icon color="white" size="1.4em" src={RiSystemSearchFill} />
             {/if}
         </div>
         <div style={`--speed: ${animationSpeed}ms;`} class:moving={clicked == 3} on:click={(e) => !clicked && handleClick(e, 3)} class="icon">
-            {#if clicked != 3}
+            {#if active != 3}
                 <Icon color="white" size="1.4em" src={RiBusinessBubbleChartLine} />
             {:else}
                 <Icon color="white" size="1.4em" src={RiBusinessBubbleChartFill} />
             {/if}
         </div>
         <div style={`--speed: ${animationSpeed}ms;`} class:moving={clicked == 4} on:click={(e) => !clicked && handleClick(e, 4)} class="icon">
-            {#if clicked != 4}
+            {#if active != 4}
                 <Icon color="white" size="1.4em" src={RiOthersBellLine} />
             {:else}
                 <Icon color="white" size="1.4em" src={RiOthersBellFill} />
             {/if}
         </div>
         <div style={`--speed: ${animationSpeed}ms;`} class:moving={clicked == 5} on:click={(e) => !clicked && handleClick(e, 5)} class="icon">
-            {#if clicked != 5}
+            {#if active != 5}
                 <Icon color="white" size="1.4em" src={RiCommunicationChat3Line} />
             {:else}
                 <Icon color="white" size="1.4em" src={RiCommunicationChat3Fill} />
