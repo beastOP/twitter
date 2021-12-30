@@ -11,21 +11,23 @@
     import RiOthersBellFill from "svelte-icons-pack/ri/RiOthersBellFill";
     import RiOthersBellLine from "svelte-icons-pack/ri/RiOthersBellLine";
     let clicked = false;
-    let active = -1;
+    let active = 1;
     let left = 0;
     let bottom = 0;
     let nav;
     const animationSpeed = 2000;
     function handleClick(e, id) {
-        clicked = id
-        left = 5-nav.getBoundingClientRect().left +e.target.getBoundingClientRect().left
-        bottom = window.innerHeight -e.target.getBoundingClientRect().bottom
-        setTimeout(() => {
-            active = id;
-        }, animationSpeed*0.7)
-        setTimeout(() => {
-            clicked =  false
-        }, animationSpeed)
+        if(active != id) {
+            clicked = id
+            left = 5-nav.getBoundingClientRect().left +e.target.getBoundingClientRect().left
+            bottom = window.innerHeight -e.target.getBoundingClientRect().bottom
+            setTimeout(() => {
+                active = id;
+            }, animationSpeed*0.7)
+            setTimeout(() => {
+                clicked =  false
+            }, animationSpeed)
+        }
     }
 </script>
 
